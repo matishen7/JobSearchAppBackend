@@ -1,4 +1,5 @@
 ﻿using JobSearchAppBackend.Models;
+using JobSearchAppBackend.ViewModels;
 
 namespace JobSearchAppBackend.Interfaces
 {
@@ -6,8 +7,8 @@ namespace JobSearchAppBackend.Interfaces
     {
         Task<List<Company>> GetAllCompaniesAsync();
         Task<Company> GetCompanyByIdAsync(int companyId);
-        Task AddCompanyAsync(Company company);
-        Task UpdateCompanyAsync(Company job);
+        Task AddCompanyAsync(CompanyDTO company);
+        Task UpdateCompanyAsync(CompanyDTO company);
         Task DeleteCompanyAsync(int companyId);
     }
 }

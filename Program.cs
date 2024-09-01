@@ -1,10 +1,14 @@
 using JobSearchAppBackend.Data;
 using JobSearchAppBackend.Interfaces;
+using JobSearchAppBackend.MapperProfiles;
 using JobSearchAppBackend.Repositories;
 using JobSearchAppBackend.Services;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 // Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(options =>

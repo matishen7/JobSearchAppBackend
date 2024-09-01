@@ -1,5 +1,6 @@
 ﻿using JobSearchAppBackend.Interfaces;
 using JobSearchAppBackend.Models;
+using JobSearchAppBackend.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -35,26 +36,23 @@ namespace JobSearchAppBackend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCompany([FromBody] Company Company)
+        public async Task<IActionResult> CreateCompany([FromBody] CompanyDTO company)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await _companyService.AddCompanyAsync(Company);
-            return CreatedAtAction(nameof(GetCompany), new { id = Company.Id }, Company);
+            await _companyService.AddCompanyAsync(company);
+            return Created();
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCompany(int id, [FromBody] Company Company)
+        public async Task<IActionResult> UpdateCompany(int id, [FromBody] CompanyDTO company)
         {
-            if (id != Company.Id)
-                return BadRequest("Company ID mismatch.");
-
             var existingCompany = await _companyService.GetCompanyByIdAsync(id);
             if (existingCompany == null)
                 return NotFound();
 
-            await _companyService.UpdateCompanyAsync(Company);
+            await _companyService.UpdateCompanyAsync(company);
             return NoContent();
         }
 
