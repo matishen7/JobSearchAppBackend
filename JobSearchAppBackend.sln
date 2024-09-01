@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35004.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobSearchAppBackend", "JobSearchAppBackend.csproj", "{33620B4A-9DC9-42F0-8876-CA427004D0DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobSearchAppBackend", "JobSearchAppBackend.csproj", "{33620B4A-9DC9-42F0-8876-CA427004D0DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobSearchTests", "..\JobSearchTests\JobSearchTests.csproj", "{D5A2AC9E-13EC-44AE-9AE2-0614B4A7BD59}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{33620B4A-9DC9-42F0-8876-CA427004D0DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33620B4A-9DC9-42F0-8876-CA427004D0DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33620B4A-9DC9-42F0-8876-CA427004D0DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5A2AC9E-13EC-44AE-9AE2-0614B4A7BD59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5A2AC9E-13EC-44AE-9AE2-0614B4A7BD59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5A2AC9E-13EC-44AE-9AE2-0614B4A7BD59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5A2AC9E-13EC-44AE-9AE2-0614B4A7BD59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
