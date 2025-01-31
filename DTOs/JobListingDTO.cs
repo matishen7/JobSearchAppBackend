@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
-namespace JobSearchAppBackend.Models
+namespace JobSearchAppBackend.DTOs
 {
-    public class Job
+    public class JobListingDTO
     {
         public int Id { get; set; }
 
@@ -19,10 +18,9 @@ namespace JobSearchAppBackend.Models
 
         public DateTime PostedDate { get; set; } = DateTime.Now;
 
-        [Required(ErrorMessage = "Company ID is required.")]
-        public int CompanyId { get; set; } // Foreign key reference to the Company
+        public int CompanyId { get; set; }
 
-        // Navigation property
-        public Company Company { get; set; }
+        // Flattened data (optional)
+        //public string CompanyName { get; set; }
     }
 }

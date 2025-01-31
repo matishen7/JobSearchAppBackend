@@ -19,6 +19,6 @@ namespace JobSearchAppBackend.Models
         public string Industry { get; set; }
 
         // Navigation Property: A company can have multiple job listings
-        public ICollection<Job> Jobs { get; set; }
+        public ICollection<JobListing> Jobs { get; set; }
     }
 }

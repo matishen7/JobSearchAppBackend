@@ -1,4 +1,5 @@
-﻿using JobSearchAppBackend.Interfaces;
+﻿using JobSearchAppBackend.DTOs;
+using JobSearchAppBackend.Interfaces;
 using JobSearchAppBackend.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -10,22 +11,22 @@ namespace JobSearchAppBackend.Controllers
     [ApiController]
     public class JobsController : ControllerBase
     {
-        private readonly IJobService _jobService;
+        private readonly IJobListingService _jobService;
 
-        public JobsController(IJobService jobService)
+        public JobsController(IJobListingService jobService)
         {
             _jobService = jobService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Job>>> GetJobs()
+        public async Task<ActionResult<List<JobListing>>> GetJobs()
         {
             var jobs = await _jobService.GetAllJobsAsync();
             return Ok(jobs);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Job>> GetJob(int id)
+        public async Task<ActionResult<JobListing>> GetJob(int id)
         {
             var job = await _jobService.GetJobByIdAsync(id);
             if (job == null)
@@ -35,17 +36,17 @@ namespace JobSearchAppBackend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateJob([FromBody] Job job)
+        public async Task<IActionResult> CreateJob([FromBody] JobListingDTO createJobDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await _jobService.AddJobAsync(job);
-            return CreatedAtAction(nameof(GetJob), new { id = job.Id }, job);
+            await _jobService.AddJobAsync(createJobDto);
+            return CreatedAtAction(nameof(CreateJob), new { id = createJobDto.Id }, createJobDto);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateJob(int id, [FromBody] Job job)
+        public async Task<IActionResult> UpdateJob(int id, [FromBody] JobListingDTO job)
         {
             if (id != job.Id)
                 return BadRequest("Job ID mismatch.");

@@ -10,7 +10,7 @@
         public DateTime AppliedDate { get; set; } // Date of application submission
 
         // Navigation Properties
-        public Job Job { get; set; } // Reference to the Job being applied for
+        public JobListing Job { get; set; } // Reference to the Job being applied for
         public User User { get; set; } // Reference to the User applying for the job
     }
 }

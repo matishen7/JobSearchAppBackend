@@ -13,8 +13,8 @@ builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 // Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddScoped<IJobRepository, JobRepository>();
-builder.Services.AddScoped<IJobService, JobService>();
+builder.Services.AddScoped<IJobListingRepository, JobRepository>();
+builder.Services.AddScoped<IJobListingService, JobListingService>();
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddScoped<ICompanyService, CompanyService>();
 //builder.Services.AddScoped<IJobApplicationRepository, JobApplicationRepository>();

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace JobSearchAppBackend.Repositories
 {
-    public class JobRepository : IJobRepository
+    public class JobRepository : IJobListingRepository
     {
         private readonly AppDbContext _context;
 
@@ -16,23 +16,23 @@ namespace JobSearchAppBackend.Repositories
             _context = context;
         }
 
-        public async Task<List<Job>> GetAllJobsAsync()
+        public async Task<List<JobListing>> GetAllJobsAsync()
         {
             return await _context.Jobs.Include(j => j.Company).ToListAsync();
         }
 
-        public async Task<Job> GetJobByIdAsync(int jobId)
+        public async Task<JobListing> GetJobByIdAsync(int jobId)
         {
             return await _context.Jobs.Include(j => j.Company).FirstOrDefaultAsync(j => j.Id == jobId);
         }
 
-        public async Task AddJobAsync(Job job)
+        public async Task AddJobAsync(JobListing job)
         {
             await _context.Jobs.AddAsync(job);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateJobAsync(Job job)
+        public async Task UpdateJobAsync(JobListing job)
         {
             _context.Jobs.Update(job);
             await _context.SaveChangesAsync();

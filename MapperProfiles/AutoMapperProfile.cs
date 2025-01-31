@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using JobSearchAppBackend.DTOs;
 using JobSearchAppBackend.Models;
 using JobSearchAppBackend.ViewModels;
 
@@ -8,8 +9,8 @@ namespace JobSearchAppBackend.MapperProfiles
     {
         public AutoMapperProfile()
         {
-            //CreateMap<Job, JobDTO>().ReverseMap();
             CreateMap<Company, CompanyDTO>().ReverseMap();
+            CreateMap<JobListing, JobListingDTO>().ReverseMap();
 
         }
     }
