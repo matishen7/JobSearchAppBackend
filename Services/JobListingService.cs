@@ -35,7 +35,7 @@ namespace JobSearchAppBackend.Services
             return await _jobListingRepository.AddJobAsync(job);
         }
 
-        public async Task UpdateJobAsync(JobListingDTO createJobDto)
+        public async Task UpdateJobAsync(JobListingCreateDTO createJobDto)
         {
             var job = _mapper.Map<JobListing>(createJobDto);
             await _jobListingRepository.UpdateJobAsync(job);

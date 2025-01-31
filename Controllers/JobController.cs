@@ -54,7 +54,7 @@ namespace JobSearchAppBackend.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateJobListing([FromBody] JobListingDTO job)
+        public async Task<IActionResult> UpdateJobListing([FromBody] JobListingCreateDTO job)
         {
             var existingCompany = await _companyService.GetCompanyByIdAsync(job.CompanyId);
             if (existingCompany == null)
