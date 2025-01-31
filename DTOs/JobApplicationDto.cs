@@ -2,7 +2,7 @@
 {
     public class JobApplicationDTO
     {
-        public int Id { get; set; }
+        public int JobApplicationId { get; set; }
 
         public string ApplicantName { get; set; }
         public string ApplicantEmail { get; set; }
@@ -15,6 +15,6 @@
         public int JobListingId { get; set; }
 
         // Optional: Include JobListing details if needed
-        //public JobListingDTO JobListing { get; set; }
+        public JobListingDTO JobListing { get; set; }
     }
 }

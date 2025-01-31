@@ -19,7 +19,7 @@ namespace JobSearchAppBackend.DTOs
         public string ApplicantPhone { get; set; }
 
         [Required(ErrorMessage = "Resume URL is required.")]
-        [Url(ErrorMessage = "Invalid URL.")]
+        //[Url(ErrorMessage = "Invalid URL.")]
         public string ResumeUrl { get; set; }
 
         [Required(ErrorMessage = "Cover Letter is required.")]

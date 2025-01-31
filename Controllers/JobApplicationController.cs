@@ -48,7 +48,7 @@ namespace JobSearchAppBackend.Controllers
                 return NotFound("Job Listing not found.");
 
             var jobApplicationId = await _jobApplicationService.AddJobApplicationAsync(JobApplicationCreateDTO);
-            return CreatedAtAction(nameof(GetJobApplication), new { id = jobApplicationId });
+            return CreatedAtAction(nameof(CreateJobApplication), new { id = jobApplicationId });
         }
 
         [HttpPut]
