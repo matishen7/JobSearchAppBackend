@@ -49,8 +49,8 @@ namespace JobSearchAppBackend.Controllers
             if (company == null)
                 return NotFound();
 
-            await _jobListingService.AddJobListingAsync(createJobDto);
-            return CreatedAtAction(nameof(CreateJobListing), new { id = createJobDto.JobId }, createJobDto);
+            var jobListingId = await _jobListingService.AddJobListingAsync(createJobDto);
+            return CreatedAtAction(nameof(CreateJobListing), new { id = jobListingId });
         }
 
         [HttpPut]

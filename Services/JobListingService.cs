@@ -2,10 +2,6 @@
 using JobSearchAppBackend.DTOs;
 using JobSearchAppBackend.Interfaces;
 using JobSearchAppBackend.Models;
-using JobSearchAppBackend.ViewModels;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace JobSearchAppBackend.Services
 {
