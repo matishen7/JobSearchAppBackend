@@ -1,12 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace JobSearchAppBackend.Models
+namespace JobSearchAppBackend.DTOs
 {
-    public class JobApplication
+    public class JobApplicationCreateDto
     {
-        [Key]
-        public int JobApplicationId { get; set; }
-
         [Required(ErrorMessage = "Applicant Name is required.")]
         [StringLength(100, ErrorMessage = "Applicant Name cannot exceed 100 characters.")]
         public string ApplicantName { get; set; }
@@ -26,13 +23,8 @@ namespace JobSearchAppBackend.Models
         [Required(ErrorMessage = "Cover Letter is required.")]
         public string CoverLetter { get; set; }
 
-        [Required(ErrorMessage = "Application Date is required.")]
-        public DateTime ApplicationDate { get; set; } = DateTime.UtcNow;
-
-        // Foreign key for JobListing
+        [Required(ErrorMessage = "Job Listing ID is required.")]
         public int JobListingId { get; set; }
 
-        // Navigation property for JobListing
-        public JobListing JobListing { get; set; }
     }
 }
