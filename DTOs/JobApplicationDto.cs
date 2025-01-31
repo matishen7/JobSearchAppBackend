@@ -1,6 +1,6 @@
 ﻿namespace JobSearchAppBackend.DTOs
 {
-    public class JobApplicationDto
+    public class JobApplicationDTO
     {
         public int Id { get; set; }
 

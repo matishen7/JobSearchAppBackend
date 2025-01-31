@@ -2,7 +2,7 @@
 
 namespace JobSearchAppBackend.DTOs
 {
-    public class JobApplicationCreateDto
+    public class JobApplicationCreateDTO
     {
         [Required(ErrorMessage = "Applicant Name is required.")]
         [StringLength(100, ErrorMessage = "Applicant Name cannot exceed 100 characters.")]
