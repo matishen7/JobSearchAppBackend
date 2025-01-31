@@ -9,8 +9,7 @@ namespace JobSearchAppBackend.MapperProfiles
     {
         public AutoMapperProfile()
         {
-            CreateMap<Company, CompanyCreateDTO>().ReverseMap();
-            CreateMap<Company, CompanyUpdateDTO>().ReverseMap();
+            CreateMap<Company, CompanyDTO>().ReverseMap();
             CreateMap<JobListing, JobListingDTO>().ReverseMap();
 
         }

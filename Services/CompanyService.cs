@@ -21,15 +21,15 @@ namespace JobSearchAppBackend.Services
             _mapper = mapper;
         }
 
-        public async Task<List<CompanyCreateDTO>> GetAllCompaniesAsync()
+        public async Task<List<CompanyDTO>> GetAllCompaniesAsync()
         {
             var companies = await _companyRepository.GetAllCompaniesAsync();
 
-            var companyDtos = _mapper.Map<List<CompanyCreateDTO>>(companies);
+            var companyDtos = _mapper.Map<List<CompanyDTO>>(companies);
             return companyDtos;
         }
 
-        public async Task<CompanyCreateDTO> GetCompanyByIdAsync(int CompanyId)
+        public async Task<CompanyDTO> GetCompanyByIdAsync(int CompanyId)
         {
             var company = await _companyRepository.GetCompanyByIdAsync(CompanyId);
             if (company == null)
@@ -37,17 +37,17 @@ namespace JobSearchAppBackend.Services
                 return null;
             }
 
-            var companyDto = _mapper.Map<CompanyCreateDTO>(company);
+            var companyDto = _mapper.Map<CompanyDTO>(company);
             return companyDto;
         }
 
-        public async Task AddCompanyAsync(CompanyCreateDTO companyDTO)
+        public async Task AddCompanyAsync(CompanyDTO companyDTO)
         {
             var company = _mapper.Map<Company>(companyDTO);
             await _companyRepository.AddCompanyAsync(company);
         }
 
-        public async Task UpdateCompanyAsync(CompanyUpdateDTO companyDTO)
+        public async Task UpdateCompanyAsync(CompanyDTO companyDTO)
         {
             var company = _mapper.Map<Company>(companyDTO);
             await _companyRepository.UpdateCompanyAsync(company);

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace JobSearchAppBackend.ViewModels
 {
-    public class CompanyCreateDTO
+    public class CompanyDTO
     {
         public int Id { get; set; }
         [Required(ErrorMessage = "Company Name is required.")]

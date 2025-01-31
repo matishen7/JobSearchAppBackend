@@ -37,7 +37,7 @@ namespace JobSearchAppBackend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCompany([FromBody] CompanyCreateDTO company)
+        public async Task<IActionResult> CreateCompany([FromBody] CompanyDTO company)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -46,10 +46,10 @@ namespace JobSearchAppBackend.Controllers
             return Created();
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCompany(int id, [FromBody] CompanyUpdateDTO company)
+        [HttpPut]
+        public async Task<IActionResult> UpdateCompany([FromBody] CompanyDTO company)
         {
-            var existingCompany = await _companyService.GetCompanyByIdAsync(id);
+            var existingCompany = await _companyService.GetCompanyByIdAsync(company.Id);
             if (existingCompany == null)
                 return NotFound();
 

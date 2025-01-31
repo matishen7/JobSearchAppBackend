@@ -6,10 +6,10 @@ namespace JobSearchAppBackend.Interfaces
 {
     public interface ICompanyService
     {
-        Task<List<CompanyCreateDTO>> GetAllCompaniesAsync();
-        Task<CompanyCreateDTO> GetCompanyByIdAsync(int companyId);
-        Task AddCompanyAsync(CompanyCreateDTO company);
-        Task UpdateCompanyAsync(CompanyUpdateDTO company);
+        Task<List<CompanyDTO>> GetAllCompaniesAsync();
+        Task<CompanyDTO> GetCompanyByIdAsync(int companyId);
+        Task AddCompanyAsync(CompanyDTO company);
+        Task UpdateCompanyAsync(CompanyDTO company);
         Task DeleteCompanyAsync(int companyId);
     }
 }
