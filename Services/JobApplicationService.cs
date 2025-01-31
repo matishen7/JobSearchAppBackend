@@ -10,7 +10,9 @@ namespace JobSearchAppBackend.Services
         private readonly IJobListingRepository _jobListingRepository;
         private readonly IJobApplicationRepository _jobApplicationRepository;
         private readonly IMapper _mapper;
-        public JobApplicationService(IJobListingRepository jobListingRepository, IMapper mapper, IJobApplicationRepository jobApplicationRepository)
+        public JobApplicationService(IJobListingRepository jobListingRepository, 
+            IMapper mapper, 
+            IJobApplicationRepository jobApplicationRepository)
         {
             _jobListingRepository = jobListingRepository;
             _mapper = mapper;
@@ -33,19 +35,19 @@ namespace JobSearchAppBackend.Services
 
         public async Task<int> AddJobApplicationAsync(JobApplicationCreateDTO createJobApplicationDto)
         {
-            var job = _mapper.Map<JobApplication>(createJobApplicationDto);
-            return await _jobApplicationRepository.AddJobApplicationAsync(job);
+            var jobApplication = _mapper.Map<JobApplication>(createJobApplicationDto);
+            return await _jobApplicationRepository.AddJobApplicationAsync(jobApplication);
         }
 
-        public async Task UpdateJobApplicationAsync(JobApplicationCreateDTO createJobDto)
+        public async Task UpdateJobApplicationAsync(JobApplicationCreateDTO createJobApplicationDto)
         {
-            var job = _mapper.Map<JobApplication>(createJobDto);
-            await _jobApplicationRepository.UpdateJobApplicationAsync(job);
+            var jobApplication = _mapper.Map<JobApplication>(createJobApplicationDto);
+            await _jobApplicationRepository.UpdateJobApplicationAsync(jobApplication);
         }
 
-        public async Task DeleteJobApplicationAsync(int jobId)
+        public async Task DeleteJobApplicationAsync(int jobApplicationId)
         {
-            await _jobApplicationRepository.DeleteJobApplicationAsync(jobId);
+            await _jobApplicationRepository.DeleteJobApplicationAsync(jobApplicationId);
         }
     }
 }
