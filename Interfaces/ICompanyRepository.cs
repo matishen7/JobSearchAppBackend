@@ -6,7 +6,7 @@ namespace JobSearchAppBackend.Interfaces
     {
         Task<List<Company>> GetAllCompaniesAsync();
         Task<Company> GetCompanyByIdAsync(int companyId);
-        Task AddCompanyAsync(Company company);
+        Task<int> AddCompanyAsync(Company company);
         Task UpdateCompanyAsync(Company company);
         Task DeleteCompanyAsync(int companyId);
     }

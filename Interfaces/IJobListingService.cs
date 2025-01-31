@@ -7,7 +7,7 @@ namespace JobSearchAppBackend.Interfaces
     {
         Task<List<JobListingDTO>> GetAllJobsAsync();
         Task<JobListingDTO> GetJobListingByIdAsync(int jobId);
-        Task AddJobListingAsync(JobListingDTO job);
+        Task<int> AddJobListingAsync(JobListingCreateDTO job);
         Task UpdateJobAsync(JobListingDTO job);
         Task DeleteJobAsync(int jobId);
     }

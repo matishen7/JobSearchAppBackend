@@ -36,10 +36,10 @@ namespace JobSearchAppBackend.Services
             return companyDto;
         }
 
-        public async Task AddCompanyAsync(CompanyDTO companyDTO)
+        public async Task<int> AddCompanyAsync(CompanyDTO companyDTO)
         {
             var company = _mapper.Map<Company>(companyDTO);
-            await _companyRepository.AddCompanyAsync(company);
+            return await _companyRepository.AddCompanyAsync(company);
         }
 
         public async Task UpdateCompanyAsync(CompanyDTO companyDTO)

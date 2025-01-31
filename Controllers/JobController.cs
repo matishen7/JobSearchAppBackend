@@ -40,7 +40,7 @@ namespace JobSearchAppBackend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateJobListing([FromBody] JobListingDTO createJobDto)
+        public async Task<IActionResult> CreateJobListing([FromBody] JobListingCreateDTO createJobDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

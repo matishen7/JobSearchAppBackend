@@ -11,6 +11,7 @@ namespace JobSearchAppBackend.MapperProfiles
         {
             CreateMap<Company, CompanyDTO>().ReverseMap();
             CreateMap<JobListing, JobListingDTO>().ReverseMap();
+            CreateMap<JobListing, JobListingCreateDTO>().ReverseMap();
 
         }
     }

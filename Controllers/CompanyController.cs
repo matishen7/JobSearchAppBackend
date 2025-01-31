@@ -4,6 +4,7 @@ using JobSearchAppBackend.Models;
 using JobSearchAppBackend.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Threading.Tasks;
 
 namespace JobSearchAppBackend.Controllers
@@ -42,8 +43,8 @@ namespace JobSearchAppBackend.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await _companyService.AddCompanyAsync(company);
-            return Created();
+            var companyId = await _companyService.AddCompanyAsync(company);
+            return CreatedAtAction(nameof(CreateCompany), new { id = companyId });
         }
 
         [HttpPut]

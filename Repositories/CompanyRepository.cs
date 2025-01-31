@@ -26,10 +26,11 @@ namespace JobSearchAppBackend.Repositories
             return await _context.Companies.Include(j => j.JobListings).AsNoTracking().FirstOrDefaultAsync(j => j.Id == companyId);
         }
 
-        public async Task AddCompanyAsync(Company Company)
+        public async Task<int> AddCompanyAsync(Company Company)
         {
             await _context.Companies.AddAsync(Company);
             await _context.SaveChangesAsync();
+            return Company.Id;
         }
 
         public async Task UpdateCompanyAsync(Company company)
