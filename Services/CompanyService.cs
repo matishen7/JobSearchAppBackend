@@ -4,6 +4,7 @@ using JobSearchAppBackend.Models;
 using JobSearchAppBackend.ViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace JobSearchAppBackend.Services
 {
@@ -19,14 +20,24 @@ namespace JobSearchAppBackend.Services
             _mapper = mapper;
         }
 
-        public async Task<List<Company>> GetAllCompaniesAsync()
+        public async Task<List<CompanyDTO>> GetAllCompaniesAsync()
         {
-            return await _companyRepository.GetAllCompaniesAsync();
+            var companies = await _companyRepository.GetAllCompaniesAsync();
+
+            var companyDtos = _mapper.Map<List<CompanyDTO>>(companies);
+            return companyDtos;
         }
 
-        public async Task<Company> GetCompanyByIdAsync(int CompanyId)
+        public async Task<CompanyDTO> GetCompanyByIdAsync(int CompanyId)
         {
-            return await _companyRepository.GetCompanyByIdAsync(CompanyId);
+            var company = await _companyRepository.GetCompanyByIdAsync(CompanyId);
+            if (company == null)
+            {
+                return null;
+            }
+
+            var companyDto = _mapper.Map<CompanyDTO>(company);
+            return companyDto;
         }
 
         public async Task AddCompanyAsync(CompanyDTO companyDTO)

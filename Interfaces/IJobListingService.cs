@@ -5,9 +5,9 @@ namespace JobSearchAppBackend.Interfaces
 {
     public interface IJobListingService
     {
-        Task<List<JobListing>> GetAllJobsAsync();
-        Task<JobListing> GetJobByIdAsync(int jobId);
-        Task AddJobAsync(JobListingDTO job);
+        Task<List<JobListingDTO>> GetAllJobsAsync();
+        Task<JobListingDTO> GetJobListingByIdAsync(int jobId);
+        Task AddJobListingAsync(JobListingDTO job);
         Task UpdateJobAsync(JobListingDTO job);
         Task DeleteJobAsync(int jobId);
     }

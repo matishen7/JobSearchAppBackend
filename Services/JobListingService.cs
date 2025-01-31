@@ -2,8 +2,10 @@
 using JobSearchAppBackend.DTOs;
 using JobSearchAppBackend.Interfaces;
 using JobSearchAppBackend.Models;
+using JobSearchAppBackend.ViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace JobSearchAppBackend.Services
 {
@@ -17,17 +19,22 @@ namespace JobSearchAppBackend.Services
             _mapper = mapper;
         }
 
-        public async Task<List<JobListing>> GetAllJobsAsync()
+        public async Task<List<JobListingDTO>> GetAllJobsAsync()
         {
-            return await _jobListingRepository.GetAllJobsAsync();
+            var jobListings = await _jobListingRepository.GetAllJobsAsync(); ;
+            var jobListingsDto = _mapper.Map<List<JobListingDTO>>(jobListings);
+            return jobListingsDto;
         }
 
-        public async Task<JobListing> GetJobByIdAsync(int jobId)
+        public async Task<JobListingDTO> GetJobListingByIdAsync(int jobId)
         {
-            return await _jobListingRepository.GetJobByIdAsync(jobId);
+            var jobListing = await _jobListingRepository.GetJobByIdAsync(jobId);
+            if (jobListing == null) return null;
+            var jobListingDto = _mapper.Map<JobListingDTO>(jobListing);
+            return jobListingDto;
         }
 
-        public async Task AddJobAsync(JobListingDTO createJobDto)
+        public async Task AddJobListingAsync(JobListingDTO createJobDto)
         {
             var job = _mapper.Map<JobListing>(createJobDto);
             await _jobListingRepository.AddJobAsync(job);
