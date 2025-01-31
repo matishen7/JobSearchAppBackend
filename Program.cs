@@ -20,9 +20,8 @@ builder.Services.AddScoped<IJobListingRepository, JobRepository>();
 builder.Services.AddScoped<IJobListingService, JobListingService>();
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddScoped<ICompanyService, CompanyService>();
-
-//builder.Services.AddScoped<IJobApplicationRepository, JobApplicationRepository>();
-//builder.Services.AddScoped<IJobApplicationService, JobApplicationService>();
+builder.Services.AddScoped<IJobApplicationRepository, JobApplicationRepository>();
+builder.Services.AddScoped<IJobApplicationService, JobApplicationService>();
 
 
 builder.Services.AddControllers();
