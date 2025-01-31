@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using JobSearchAppBackend.DTOs;
+using System.ComponentModel.DataAnnotations;
 
 namespace JobSearchAppBackend.ViewModels
 {
-    public class CompanyDTO
+    public class CompanyCreateDTO
     {
+        public int Id { get; set; }
         [Required(ErrorMessage = "Company Name is required.")]
         [StringLength(100, ErrorMessage = "Company Name cannot exceed 100 characters.")]
         public string Name { get; set; }

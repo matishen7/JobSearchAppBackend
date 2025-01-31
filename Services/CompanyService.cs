@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using JobSearchAppBackend.DTOs;
 using JobSearchAppBackend.Interfaces;
 using JobSearchAppBackend.Models;
 using JobSearchAppBackend.ViewModels;
@@ -20,15 +21,15 @@ namespace JobSearchAppBackend.Services
             _mapper = mapper;
         }
 
-        public async Task<List<CompanyDTO>> GetAllCompaniesAsync()
+        public async Task<List<CompanyCreateDTO>> GetAllCompaniesAsync()
         {
             var companies = await _companyRepository.GetAllCompaniesAsync();
 
-            var companyDtos = _mapper.Map<List<CompanyDTO>>(companies);
+            var companyDtos = _mapper.Map<List<CompanyCreateDTO>>(companies);
             return companyDtos;
         }
 
-        public async Task<CompanyDTO> GetCompanyByIdAsync(int CompanyId)
+        public async Task<CompanyCreateDTO> GetCompanyByIdAsync(int CompanyId)
         {
             var company = await _companyRepository.GetCompanyByIdAsync(CompanyId);
             if (company == null)
@@ -36,17 +37,17 @@ namespace JobSearchAppBackend.Services
                 return null;
             }
 
-            var companyDto = _mapper.Map<CompanyDTO>(company);
+            var companyDto = _mapper.Map<CompanyCreateDTO>(company);
             return companyDto;
         }
 
-        public async Task AddCompanyAsync(CompanyDTO companyDTO)
+        public async Task AddCompanyAsync(CompanyCreateDTO companyDTO)
         {
             var company = _mapper.Map<Company>(companyDTO);
             await _companyRepository.AddCompanyAsync(company);
         }
 
-        public async Task UpdateCompanyAsync(CompanyDTO companyDTO)
+        public async Task UpdateCompanyAsync(CompanyUpdateDTO companyDTO)
         {
             var company = _mapper.Map<Company>(companyDTO);
             await _companyRepository.UpdateCompanyAsync(company);

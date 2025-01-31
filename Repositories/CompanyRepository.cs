@@ -18,12 +18,12 @@ namespace JobSearchAppBackend.Repositories
 
         public async Task<List<Company>> GetAllCompaniesAsync()
         {
-            return await _context.Companies.Include(j => j.Jobs).ToListAsync();
+            return await _context.Companies.Include(j => j.JobListings).AsNoTracking().ToListAsync();
         }
 
         public async Task<Company> GetCompanyByIdAsync(int companyId)
         {
-            return await _context.Companies.Include(j => j.Jobs).FirstOrDefaultAsync(j => j.Id == companyId);
+            return await _context.Companies.Include(j => j.JobListings).AsNoTracking().FirstOrDefaultAsync(j => j.Id == companyId);
         }
 
         public async Task AddCompanyAsync(Company Company)
@@ -34,16 +34,33 @@ namespace JobSearchAppBackend.Repositories
 
         public async Task UpdateCompanyAsync(Company company)
         {
-            _context.Companies.Update(company);
-            await _context.SaveChangesAsync();
+            try
+            {
+                var existingCompany = await _context.Companies.FindAsync(company.Id);
+                if (existingCompany != null)
+                {
+                    existingCompany.Name = company.Name;
+                    existingCompany.Description = company.Description;
+                    existingCompany.Location = company.Location;
+                    existingCompany.Website = company.Website;
+                    existingCompany.Industry = company.Industry;
+
+                    _context.Companies.Update(existingCompany);
+                    await _context.SaveChangesAsync();
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new ApplicationException("An error occurred while retrieving companies.", ex);
+            }
         }
 
         public async Task DeleteCompanyAsync(int companyId)
         {
-            var Company = await _context.Companies.FindAsync(companyId);
-            if (Company != null)
+            var company = await _context.Companies.FindAsync(companyId);
+            if (company != null)
             {
-                _context.Companies.Remove(Company);
+                _context.Companies.Remove(company);
                 await _context.SaveChangesAsync();
             }
         }

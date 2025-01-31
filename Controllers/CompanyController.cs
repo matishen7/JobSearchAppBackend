@@ -1,4 +1,5 @@
-﻿using JobSearchAppBackend.Interfaces;
+﻿using JobSearchAppBackend.DTOs;
+using JobSearchAppBackend.Interfaces;
 using JobSearchAppBackend.Models;
 using JobSearchAppBackend.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -36,7 +37,7 @@ namespace JobSearchAppBackend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCompany([FromBody] CompanyDTO company)
+        public async Task<IActionResult> CreateCompany([FromBody] CompanyCreateDTO company)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -46,7 +47,7 @@ namespace JobSearchAppBackend.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCompany(int id, [FromBody] CompanyDTO company)
+        public async Task<IActionResult> UpdateCompany(int id, [FromBody] CompanyUpdateDTO company)
         {
             var existingCompany = await _companyService.GetCompanyByIdAsync(id);
             if (existingCompany == null)

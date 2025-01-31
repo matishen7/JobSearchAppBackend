@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using JobSearchAppBackend.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace JobSearchAppBackend.DTOs
 {
@@ -20,7 +21,6 @@ namespace JobSearchAppBackend.DTOs
 
         public int CompanyId { get; set; }
 
-        // Flattened data (optional)
-        //public string CompanyName { get; set; }
+        //public Company Company { get; set; }
     }
 }
