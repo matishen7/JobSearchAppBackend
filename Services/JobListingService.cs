@@ -29,7 +29,6 @@ namespace JobSearchAppBackend.Services
         public async Task<JobListingDTO> GetJobListingByIdAsync(int jobId)
         {
             var jobListing = await _jobListingRepository.GetJobByIdAsync(jobId);
-            if (jobListing == null) return null;
             var jobListingDto = _mapper.Map<JobListingDTO>(jobListing);
             return jobListingDto;
         }

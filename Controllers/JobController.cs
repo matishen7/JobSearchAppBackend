@@ -5,6 +5,7 @@ using JobSearchAppBackend.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace JobSearchAppBackend.Controllers
 {
@@ -44,21 +45,22 @@ namespace JobSearchAppBackend.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var Company = await _companyService.GetCompanyByIdAsync(createJobDto.CompanyId);
-            if (Company == null)
+            var company = await _companyService.GetCompanyByIdAsync(createJobDto.CompanyId);
+            if (company == null)
                 return NotFound();
 
             await _jobListingService.AddJobListingAsync(createJobDto);
-            return CreatedAtAction(nameof(CreateJobListing), new { id = createJobDto.Id }, createJobDto);
+            return CreatedAtAction(nameof(CreateJobListing), new { id = createJobDto.JobId }, createJobDto);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateJobListing(int id, [FromBody] JobListingDTO job)
+        [HttpPut]
+        public async Task<IActionResult> UpdateJobListing([FromBody] JobListingDTO job)
         {
-            if (id != job.Id)
-                return BadRequest("Job ID mismatch.");
+            var existingCompany = await _companyService.GetCompanyByIdAsync(job.CompanyId);
+            if (existingCompany == null)
+                return NotFound();
 
-            var existingJob = await _jobListingService.GetJobListingByIdAsync(id);
+            var existingJob = await _jobListingService.GetJobListingByIdAsync(job.JobId);
             if (existingJob == null)
                 return NotFound();
 

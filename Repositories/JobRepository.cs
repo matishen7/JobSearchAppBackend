@@ -24,7 +24,7 @@ namespace JobSearchAppBackend.Repositories
 
         public async Task<JobListing> GetJobByIdAsync(int jobId)
         {
-            return await _context.Jobs.Include(j => j.Company).AsNoTracking().FirstOrDefaultAsync(j => j.Id == jobId);
+            return await _context.Jobs.Include(j => j.Company).AsNoTracking().FirstOrDefaultAsync(j => j.JobId == jobId);
         }
 
         public async Task AddJobAsync(JobListing job)
@@ -35,7 +35,8 @@ namespace JobSearchAppBackend.Repositories
 
         public async Task UpdateJobAsync(JobListing job)
         {
-            var existingJobListing = await _context.Jobs.FindAsync(job.Id);
+            _context.ChangeTracker.Clear();
+            var existingJobListing = await _context.Jobs.FindAsync(job.JobId);
             if (existingJobListing != null)
             {
                 existingJobListing.Title = job.Title;
@@ -43,10 +44,10 @@ namespace JobSearchAppBackend.Repositories
                 existingJobListing.Description = job.Description;
                 existingJobListing.CompanyId = job.CompanyId;
 
-                _context.Jobs.Update(job);
+                _context.Jobs.Attach(existingJobListing);
                 await _context.SaveChangesAsync();
             }
-           
+
         }
 
         public async Task DeleteJobAsync(int jobId)

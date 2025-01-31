@@ -1,11 +1,12 @@
 ﻿using JobSearchAppBackend.Models;
+using JobSearchAppBackend.ViewModels;
 using System.ComponentModel.DataAnnotations;
 
 namespace JobSearchAppBackend.DTOs
 {
     public class JobListingDTO
     {
-        public int Id { get; set; }
+        public int JobId { get; set; }
 
         [Required(ErrorMessage = "Job title is required.")]
         [StringLength(100, ErrorMessage = "Job title cannot exceed 100 characters.")]
@@ -20,7 +21,7 @@ namespace JobSearchAppBackend.DTOs
         public DateTime PostedDate { get; set; } = DateTime.Now;
 
         public int CompanyId { get; set; }
+        public CompanyDTO Company { get; set; }
 
-        //public Company Company { get; set; }
     }
 }

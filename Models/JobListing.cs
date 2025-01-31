@@ -5,7 +5,8 @@ namespace JobSearchAppBackend.Models
 {
     public class JobListing
     {
-        public int Id { get; set; }
+        [Key]
+        public int JobId { get; set; }
 
         [Required(ErrorMessage = "Job title is required.")]
         [StringLength(100, ErrorMessage = "Job title cannot exceed 100 characters.")]

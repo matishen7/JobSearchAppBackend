@@ -6,6 +6,7 @@ using JobSearchAppBackend.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using AutoMapper;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
@@ -13,10 +14,13 @@ builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 // Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")).EnableSensitiveDataLogging());
 builder.Services.AddScoped<IJobListingRepository, JobRepository>();
 builder.Services.AddScoped<IJobListingService, JobListingService>();
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddScoped<ICompanyService, CompanyService>();
+
 //builder.Services.AddScoped<IJobApplicationRepository, JobApplicationRepository>();
 //builder.Services.AddScoped<IJobApplicationService, JobApplicationService>();
 

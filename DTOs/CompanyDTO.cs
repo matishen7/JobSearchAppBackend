@@ -1,4 +1,5 @@
 ﻿using JobSearchAppBackend.DTOs;
+using JobSearchAppBackend.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace JobSearchAppBackend.ViewModels

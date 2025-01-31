@@ -32,11 +32,6 @@ namespace JobSearchAppBackend.Services
         public async Task<CompanyDTO> GetCompanyByIdAsync(int CompanyId)
         {
             var company = await _companyRepository.GetCompanyByIdAsync(CompanyId);
-            if (company == null)
-            {
-                return null;
-            }
-
             var companyDto = _mapper.Map<CompanyDTO>(company);
             return companyDto;
         }
