@@ -3,6 +3,7 @@ using JobSearchAppBackend.Interfaces;
 using JobSearchAppBackend.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace JobSearchAppBackend.Repositories
@@ -16,24 +17,24 @@ namespace JobSearchAppBackend.Repositories
             _context = context;
         }
 
-        public async Task<List<Company>> GetAllCompaniesAsync()
+        public async Task<List<Company>> GetAllCompaniesAsync(CancellationToken cancellationToken = default)
         {
             return await _context.Companies.Include(j => j.JobListings).AsNoTracking().ToListAsync();
         }
 
-        public async Task<Company> GetCompanyByIdAsync(int companyId)
+        public async Task<Company> GetCompanyByIdAsync(int companyId, CancellationToken cancellationToken = default)
         {
             return await _context.Companies.Include(j => j.JobListings).AsNoTracking().FirstOrDefaultAsync(j => j.Id == companyId);
         }
 
-        public async Task<int> AddCompanyAsync(Company Company)
+        public async Task<int> AddCompanyAsync(Company Company, CancellationToken cancellationToken = default)
         {
             await _context.Companies.AddAsync(Company);
             await _context.SaveChangesAsync();
             return Company.Id;
         }
 
-        public async Task UpdateCompanyAsync(Company company)
+        public async Task UpdateCompanyAsync(Company company,CancellationToken cancellationToken = default)
         {
             try
             {
@@ -56,7 +57,7 @@ namespace JobSearchAppBackend.Repositories
             }
         }
 
-        public async Task DeleteCompanyAsync(int companyId)
+        public async Task DeleteCompanyAsync(int companyId,CancellationToken cancellationToken = default)
         {
             var company = await _context.Companies.FindAsync(companyId);
             if (company != null)

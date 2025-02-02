@@ -1,13 +1,14 @@
 ﻿using JobSearchAppBackend.Models;
+using System.Threading;
 
 namespace JobSearchAppBackend.Interfaces
 {
     public interface ICompanyRepository
     {
-        Task<List<Company>> GetAllCompaniesAsync();
-        Task<Company> GetCompanyByIdAsync(int companyId);
-        Task<int> AddCompanyAsync(Company company);
-        Task UpdateCompanyAsync(Company company);
-        Task DeleteCompanyAsync(int companyId);
+        Task<List<Company>> GetAllCompaniesAsync(CancellationToken cancellationToken = default);
+        Task<Company> GetCompanyByIdAsync(int companyId,CancellationToken cancellationToken = default);
+        Task<int> AddCompanyAsync(Company company, CancellationToken cancellationToken = default);
+        Task UpdateCompanyAsync(Company company, CancellationToken cancellationToken = default);
+        Task DeleteCompanyAsync(int companyId, CancellationToken cancellationToken = default);
     }
 }
