@@ -25,5 +25,7 @@ namespace JobSearchAppBackend.Models
 
         // Navigation property
         public Company Company { get; set; }
+        public bool Removed { get; set; }
+
     }
 }

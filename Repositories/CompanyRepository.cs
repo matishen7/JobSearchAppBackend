@@ -19,12 +19,12 @@ namespace JobSearchAppBackend.Repositories
 
         public async Task<List<Company>> GetAllCompaniesAsync(CancellationToken cancellationToken = default)
         {
-            return await _context.Companies.Include(j => j.JobListings).AsNoTracking().ToListAsync();
+            return await _context.Companies.Where(c => !c.Removed).Include(j => j.JobListings).AsNoTracking().ToListAsync();
         }
 
         public async Task<Company> GetCompanyByIdAsync(int companyId, CancellationToken cancellationToken = default)
         {
-            return await _context.Companies.Include(j => j.JobListings).AsNoTracking().FirstOrDefaultAsync(j => j.Id == companyId);
+            return await _context.Companies.Where(c => !c.Removed).Include(j => j.JobListings).AsNoTracking().FirstOrDefaultAsync(j => j.Id == companyId);
         }
 
         public async Task<int> AddCompanyAsync(Company Company, CancellationToken cancellationToken = default)
@@ -34,7 +34,7 @@ namespace JobSearchAppBackend.Repositories
             return Company.Id;
         }
 
-        public async Task UpdateCompanyAsync(Company company,CancellationToken cancellationToken = default)
+        public async Task UpdateCompanyAsync(Company company, CancellationToken cancellationToken = default)
         {
             try
             {
@@ -51,18 +51,18 @@ namespace JobSearchAppBackend.Repositories
                     await _context.SaveChangesAsync();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new ApplicationException("An error occurred while retrieving companies.", ex);
             }
         }
 
-        public async Task DeleteCompanyAsync(int companyId,CancellationToken cancellationToken = default)
+        public async Task DeleteCompanyAsync(int companyId, CancellationToken cancellationToken = default)
         {
             var company = await _context.Companies.FindAsync(companyId);
             if (company != null)
             {
-                _context.Companies.Remove(company);
+                company.Removed = true;
                 await _context.SaveChangesAsync();
             }
         }

@@ -51,6 +51,11 @@ public class AuthService : IAuthService
 
     public async Task<(bool Succeeded, string Token, string ErrorMessage)> RegisterUser(RegisterDTO model)
     {
+        var allowedRoles = new List<string> { "JobSeeker", "Employer" };
+
+        if (!allowedRoles.Contains(model.Role))
+            return (false, null, "You are not authorized to register as an Admin.");
+
         var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FullName = model.FullName, Role = model.Role };
         var result = await _userManager.CreateAsync(user, model.Password);
 

@@ -34,5 +34,7 @@ namespace JobSearchAppBackend.Models
 
         // Navigation property for JobListing
         public JobListing JobListing { get; set; }
+        public bool Removed { get; set; }
+
     }
 }

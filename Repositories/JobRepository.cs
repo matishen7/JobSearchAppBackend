@@ -19,12 +19,12 @@ namespace JobSearchAppBackend.Repositories
 
         public async Task<List<JobListing>> GetAllJobsAsync()
         {
-            return await _context.Jobs.Include(j => j.Company).AsNoTracking().ToListAsync();
+            return await _context.Jobs.Where(c => !c.Removed).Include(j => j.Company).AsNoTracking().ToListAsync();
         }
 
         public async Task<JobListing> GetJobByIdAsync(int jobId)
         {
-            return await _context.Jobs.Include(j => j.Company).AsNoTracking().FirstOrDefaultAsync(j => j.JobId == jobId);
+            return await _context.Jobs.Where(c => !c.Removed).Include(j => j.Company).AsNoTracking().FirstOrDefaultAsync(j => j.JobId == jobId);
         }
 
         public async Task<int> AddJobAsync(JobListing job)
@@ -56,7 +56,7 @@ namespace JobSearchAppBackend.Repositories
             var job = await _context.Jobs.FindAsync(jobId);
             if (job != null)
             {
-                _context.Jobs.Remove(job);
+                job.Removed = true;
                 await _context.SaveChangesAsync();
             }
         }
