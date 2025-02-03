@@ -2,6 +2,7 @@
 using JobSearchAppBackend.Interfaces;
 using JobSearchAppBackend.Models;
 using JobSearchAppBackend.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -39,6 +40,7 @@ namespace JobSearchAppBackend.Controllers
             return Ok(job);
         }
 
+        [Authorize(Roles = "Employer,Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateJobListing([FromBody] JobListingCreateDTO createJobDto)
         {
