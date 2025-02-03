@@ -2,6 +2,7 @@
 using JobSearchAppBackend.Interfaces;
 using JobSearchAppBackend.Models;
 using JobSearchAppBackend.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
@@ -36,7 +37,8 @@ namespace JobSearchAppBackend.Controllers
 
             return Ok(Company);
         }
-
+        
+        [Authorize(Roles = "Employer,Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateCompany([FromBody] CompanyDTO company)
         {
@@ -46,7 +48,8 @@ namespace JobSearchAppBackend.Controllers
             var companyId = await _companyService.AddCompanyAsync(company);
             return CreatedAtAction(nameof(CreateCompany), new { id = companyId });
         }
-
+        
+        [Authorize(Roles = "Employer,Admin")]
         [HttpPut]
         public async Task<IActionResult> UpdateCompany([FromBody] CompanyDTO company)
         {
@@ -58,6 +61,7 @@ namespace JobSearchAppBackend.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "Employer,Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCompany(int id)
         {

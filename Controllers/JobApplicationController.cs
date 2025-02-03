@@ -1,5 +1,6 @@
 ﻿using JobSearchAppBackend.DTOs;
 using JobSearchAppBackend.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobSearchAppBackend.Controllers
@@ -18,7 +19,8 @@ namespace JobSearchAppBackend.Controllers
             _jobApplicationService = jobApplicationService;
             _jobListingService = jobListingService;
         }
-
+        
+        [Authorize(Roles = "Employer,Admin")]
         [HttpGet]
         public async Task<ActionResult<List<JobApplicationDTO>>> GetJobApplications()
         {
@@ -36,6 +38,7 @@ namespace JobSearchAppBackend.Controllers
             return Ok(jobApplication);
         }
 
+        [Authorize(Roles = "JobSeeker")]
         [HttpPost]
         public async Task<IActionResult> CreateJobApplication([FromBody] JobApplicationCreateDTO JobApplicationCreateDTO)
         {
@@ -51,6 +54,7 @@ namespace JobSearchAppBackend.Controllers
             return CreatedAtAction(nameof(CreateJobApplication), new { id = jobApplicationId });
         }
 
+        [Authorize(Roles = "JobSeeker")]
         [HttpPut]
         public async Task<IActionResult> UpdateJobApplication([FromBody] JobApplicationCreateDTO JobApplicationCreateDTO)
         {

@@ -55,6 +55,7 @@ namespace JobSearchAppBackend.Controllers
             return CreatedAtAction(nameof(CreateJobListing), new { id = jobListingId });
         }
 
+        [Authorize(Roles = "Employer,Admin")]
         [HttpPut]
         public async Task<IActionResult> UpdateJobListing([FromBody] JobListingCreateDTO job)
         {
@@ -70,6 +71,7 @@ namespace JobSearchAppBackend.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "Employer,Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteJobListing(int id)
         {
