@@ -28,6 +28,7 @@ builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<IJobApplicationRepository, JobApplicationRepository>();
 builder.Services.AddScoped<IJobApplicationService, JobApplicationService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 // Configure Identity
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()

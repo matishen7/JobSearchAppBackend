@@ -5,17 +5,22 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using JobSearchAppBackend.Models;
+using JobSearchAppBackend.DTOs;
 
 namespace JobSearchAppBackend.Services;
-public class AuthService
+public class AuthService : IAuthService
 {
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly IConfiguration _config;
 
-    public AuthService(UserManager<ApplicationUser> userManager, IConfiguration config)
+    public AuthService(UserManager<ApplicationUser> userManager, 
+        IConfiguration config,
+        SignInManager<ApplicationUser> signInManager)
     {
         _userManager = userManager;
         _config = config;
+        _signInManager = signInManager;
     }
 
     public async Task<string> GenerateJwtToken(ApplicationUser user)
@@ -42,6 +47,33 @@ public class AuthService
         );
 
         return new JwtSecurityTokenHandler().WriteToken(token);
+    }
+
+    public async Task<(bool Succeeded, string Token, string ErrorMessage)> RegisterUser(RegisterDTO model)
+    {
+        var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FullName = model.FullName, Role = model.Role };
+        var result = await _userManager.CreateAsync(user, model.Password);
+
+        if (!result.Succeeded)
+        {
+            return (false, null, string.Join(", ", result.Errors.Select(e => e.Description)));
+        }
+
+        await _userManager.AddToRoleAsync(user, model.Role);
+        var token = await GenerateJwtToken(user);
+        return (true, token, null);
+    }
+
+    public async Task<(bool Succeeded, string Token, string ErrorMessage)> LoginUser(LoginDTO model)
+    {
+        var user = await _userManager.FindByEmailAsync(model.Email);
+        if (user == null) return (false, null, "Invalid credentials");
+
+        var result = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
+        if (!result.Succeeded) return (false, null, "Invalid credentials");
+
+        var token = await GenerateJwtToken(user);
+        return (true, token, null);
     }
 }
 
